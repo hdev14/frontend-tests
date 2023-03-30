@@ -14,7 +14,7 @@ function Repos(props: RepoProps) {
         <li>{repo.name} <a href={repo.url}>ver repo</a></li>
       ))}
     </ul>
-  )
+  );
 }
 
-export default Repos
+export default Repos;
