@@ -11,7 +11,7 @@ function Repos({ data }: RepoProps) {
   return (
     <ul className="repos">
       {data.map((repo) => (
-        <li>{repo.name} <a href={repo.url}>ver repo</a></li>
+        <li key={repo.name}>{repo.name} <a href={repo.url}>ver repo</a></li>
       ))}
     </ul>
   );

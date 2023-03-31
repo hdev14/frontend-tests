@@ -1,17 +1,13 @@
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Repos from '../../components/Repos';
+import { Repo, RootState } from '../../redux';
 import './index.css';
-
-const data = [
-  {
-    name: 'clean-code',
-    url: 'https://github.com/hdev14/clean-code-example'
-  }
-];
 
 function RepoList() {
   const navigate = useNavigate();
   const { username } = useParams();
+  const data = useSelector<RootState, Repo[]>((state) => state.repos)
   
   const onClickHandler = () => {
     console.log(username);

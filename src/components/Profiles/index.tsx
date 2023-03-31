@@ -3,10 +3,10 @@ import Button from '../Button';
 import './index.css';
 
 interface RepoProps {
-  usernames: string[]
+  profiles: string[]
 }
 
-function Profiles({ usernames }: RepoProps) {
+function Profiles({ profiles }: RepoProps) {
   const navigate = useNavigate();
 
   const onClickHandler = (username: string) => () => {
@@ -15,8 +15,8 @@ function Profiles({ usernames }: RepoProps) {
 
   return (
     <ul className="profiles">
-      {usernames.map((username) => (
-        <li>{username} <Button type='button' className='link' onClick={onClickHandler(username)}>ver repos</Button></li>
+      {profiles.map((username) => (
+        <li key={username}>{username} <Button type='button' className='link' onClick={onClickHandler(username)}>ver repos</Button></li>
       ))}
     </ul>
   );
