@@ -7,10 +7,10 @@ interface RepoProps {
   }>
 }
 
-function Repos(props: RepoProps) {
+function Repos({ data }: RepoProps) {
   return (
-    <ul className="Repo">
-      {props.data.map((repo) => (
+    <ul className="repos">
+      {data.map((repo) => (
         <li>{repo.name} <a href={repo.url}>ver repo</a></li>
       ))}
     </ul>

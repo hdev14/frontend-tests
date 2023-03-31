@@ -1,9 +1,9 @@
-ul.repos {
+ul.profiles {
   list-style: none;
   margin: 50px;
 }
 
-ul.repos li {
+ul.profiles li {
   padding: 10px 20px;
   border-bottom: 0.5px solid lightgray;
   display: flex;
@@ -12,7 +12,9 @@ ul.repos li {
   font-size: 1.5rem;
 }
 
-ul.repos li  a {
+ul.profiles li  button.link {
   border: none;
+  background-color: transparent;
   color: white;
+  text-decoration: underline;
 }

@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     element: <ProfileList />,
   },
   {
-    path: '/repos',
+    path: '/repos/:username',
     element: <RepoList />,
   },
   {

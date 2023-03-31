@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Repos from '../../components/Repos';
 import './index.css';
 
@@ -11,8 +11,10 @@ const data = [
 
 function RepoList() {
   const navigate = useNavigate();
+  const { username } = useParams();
   
   const onClickHandler = () => {
+    console.log(username);
     navigate('/add');
   }
 

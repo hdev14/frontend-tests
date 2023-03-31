@@ -19,8 +19,8 @@ function FormProfile({ addProfile }: FormProfileProps) {
   }
 
   return (
-    <form className="FormProfile" onSubmit={submitHandler}>
-      <input type='text' onChange={onChangeHandler} />
+    <form className="form-profile" onSubmit={submitHandler}>
+      <input type='text' onChange={onChangeHandler} placeholder='digite o username'/>
       <Button type='submit'>Adicionar</Button>
     </form>
   );
