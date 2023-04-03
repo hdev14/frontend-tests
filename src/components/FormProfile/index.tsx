@@ -14,7 +14,7 @@ function FormProfile({ addProfile }: FormProfileProps) {
     await addProfile(input);
   }
 
-  const onChangeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   }
 

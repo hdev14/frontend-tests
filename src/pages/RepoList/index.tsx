@@ -1,18 +1,20 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Repos from '../../components/Repos';
-import { Repo, RootState } from '../../redux';
+import { AppDispatch, Repo, RootState, fetchRepos } from '../../redux';
 import './index.css';
 
 function RepoList() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { username } = useParams();
   const data = useSelector<RootState, Repo[]>((state) => state.repos)
   
-  const onClickHandler = () => {
-    console.log(username);
-    navigate('/add');
-  }
+  useEffect(() => {
+    if (username) {
+      dispatch(fetchRepos({ username }));
+    }
+  },[]);
 
   return (
     <div className='center'>

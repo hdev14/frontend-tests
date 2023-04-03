@@ -1,6 +1,6 @@
-import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
 
-export type Repo = { name: string, url: string };
+export type Repo = { name: string, link: string };
 
 export type InitialState = {
   repos: Array<Repo>;
@@ -11,7 +11,7 @@ const initialState: InitialState = {
   repos: [
     {
       name: 'clean-code',
-      url: 'https://github.com/hdev14/clean-code-example'
+      link: 'https://github.com/hdev14/clean-code-example'
     }
   ],
   profiles: ['hdev14'],
@@ -24,13 +24,14 @@ const slice = createSlice({
     setRepos: (state, { payload }: { payload: Repo[] }) => {
       state.repos = payload;
     },
+    setProfiles: (state, { payload }: { payload: string[] }) => {
+      state.profiles = payload;
+    },
     addProfile: (state, { payload }: { payload: string }) => {
       state.profiles.push(payload);
     }
   }
 })
-
-export const { setRepos, addProfile } = slice.actions
 
 const store = configureStore({
   reducer: slice.reducer
@@ -39,7 +40,7 @@ const store = configureStore({
 export const registerProfile = createAsyncThunk<void, { username: string }>(
   '@registerProfile',
   async ({ username }, { dispatch }) => {
-    const response = await fetch('http://localhsot:3000/users/profiles', {
+    const response = await fetch('http://localhost:3000/users/profiles', {
       method: "POST",
       mode: "cors",
       headers: {
@@ -48,7 +49,7 @@ export const registerProfile = createAsyncThunk<void, { username: string }>(
       body: JSON.stringify({ username }),
     });
 
-    if (response.status >= 400) {
+    if (!response.ok) {
       throw new Error(`HTTP Error => ${response.status}`);
     }
 
@@ -61,7 +62,7 @@ export const registerProfile = createAsyncThunk<void, { username: string }>(
 export const fetchProfiles = createAsyncThunk(
   '@fetchProfiles',
   async (args, { dispatch }) => {
-    const response = await fetch('http://localhsot:3000/users/profiles', {
+    const response = await fetch('http://localhost:3000/users/profiles', {
       method: "GET",
       mode: "cors",
       headers: {
@@ -69,20 +70,20 @@ export const fetchProfiles = createAsyncThunk(
       },
     });
 
-    if (response.status >= 400) {
+    if (!response.ok) {
       throw new Error(`HTTP Error => ${response.status}`);
     }
 
-    const body = response.json();
+    const body = await response.json();
 
-    console.log(body);
+    dispatch(slice.actions.setProfiles(body.map((profile: any) => profile.username)))
   }
 );
 
 export const fetchProfile = createAsyncThunk<void, { username: string }>(
   '@fetchProfile',
   async ({ username }, { dispatch }) => {
-    const response = await fetch(`http://localhsot:3000/users/profiles/${username}`, {
+    const response = await fetch(`http://localhost:3000/users/profiles/${username}`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -90,7 +91,7 @@ export const fetchProfile = createAsyncThunk<void, { username: string }>(
       },
     });
 
-    if (response.status >= 400) {
+    if (!response.ok) {
       throw new Error(`HTTP Error => ${response.status}`);
     }
 
@@ -103,7 +104,7 @@ export const fetchProfile = createAsyncThunk<void, { username: string }>(
 export const fetchRepos = createAsyncThunk<void, { username: string }>(
   '@fetchRepos',
   async ({ username }, { dispatch }) => {
-    const response = await fetch(`http://localhsot:3000/repos/${username}`, {
+    const response = await fetch(`http://localhost:3000/repos/${username}`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -111,13 +112,13 @@ export const fetchRepos = createAsyncThunk<void, { username: string }>(
       },
     });
 
-    if (response.status >= 400) {
+    if (!response.ok) {
       throw new Error(`HTTP Error => ${response.status}`);
     }
 
-    const body = response.json();
+    const body = await response.json();
 
-    console.log(body);
+    dispatch(slice.actions.setRepos(body));
   }
 );
 

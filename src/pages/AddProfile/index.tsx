@@ -1,12 +1,16 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FormProfile from "../../components/FormProfile";
+import { AppDispatch, registerProfile } from "../../redux";
 
 function AddProfile() {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const addProfileHandler = async (username: string) => {
-    console.log(username);
-    navigate('/');
+    dispatch(registerProfile({ username })).then(() => {
+      navigate('/');
+    });
   }
 
   return (
