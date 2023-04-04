@@ -11,7 +11,9 @@ function FormProfile({ addProfile }: FormProfileProps) {
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await addProfile(input);
+    if (input !== '') {
+      await addProfile(input);
+    }
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +22,14 @@ function FormProfile({ addProfile }: FormProfileProps) {
 
   return (
     <form className="form-profile" onSubmit={submitHandler}>
-      <input type='text' onChange={onChangeHandler} placeholder='digite o username'/>
-      <Button type='submit'>Adicionar</Button>
+      <input 
+        type='text' 
+        onChange={onChangeHandler} 
+        placeholder='digite o username'
+        data-test='form-profile-input'
+      />
+
+      <Button type='submit' data-test='form-profile-btn'>Adicionar</Button>
     </form>
   );
 }

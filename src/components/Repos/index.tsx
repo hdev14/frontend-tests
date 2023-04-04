@@ -9,7 +9,7 @@ interface RepoProps {
 
 function Repos({ data }: RepoProps) {
   return (
-    <ul className="repos">
+    <ul data-test="repos-ul" className="repos">
       {data.map((repo) => (
         <li key={repo.name}>{repo.name} <a href={repo.link}>ver repo</a></li>
       ))}

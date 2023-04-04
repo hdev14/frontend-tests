@@ -14,7 +14,7 @@ function Profiles({ profiles }: RepoProps) {
   }
 
   return (
-    <ul className="profiles">
+    <ul data-test='profiles-ul' className="profiles">
       {profiles.map((username) => (
         <li key={username}>{username} <Button type='button' className='link' onClick={onClickHandler(username)}>ver repos</Button></li>
       ))}
